@@ -93,12 +93,96 @@ CREATE TABLE IF NOT EXISTS `fiscal` (
 
 CREATE TABLE IF NOT EXISTS `vota_en` ( 
 	`id_ciudadano` INT(11) NOT NULL,
-	`id_mesa` INT(11) NOT NULL
+	`id_mesa` INT(11) NOT NULL,
+	`hora` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- Foreign Keys
 
+ALTER TABLE `boleta` ADD FOREIGN KEY `FK_boleta_eleccion` 
+	(`id_eleccion`) REFERENCES `eleccion` (`id_eleccion`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `camioneta` ADD FOREIGN KEY `FK_camioneta_centro` 
+	(`id_centro`) REFERENCES `centro` (`id_centro`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `camioneta` ADD FOREIGN KEY `FK_camioneta_responsable` 
+	(`id_responsable`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `candidato` ADD FOREIGN KEY `FK_boleta_id` 
+	(`id_boleta`) REFERENCES `boleta` (`id_boleta`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `candidato` ADD FOREIGN KEY `FK_candidato_ciudadano` 
+	(`id_ciudadano`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `candidato` ADD FOREIGN KEY `FK_candidato_partido` 
+	(`id_partido`) REFERENCES `partido` (`id_partido`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `eleccion` ADD FOREIGN KEY `FK_eleccion_territorio` 
+	(`id_jurisdiccion`) REFERENCES `territorio` (`id_territorio`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_eleccion` 
+	(`id_eleccion`) REFERENCES `eleccion` (`id_eleccion`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_presidente` 
+	(`id_presidente`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_vicepresidente` 
+	(`id_vicepresidente`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_tecnico` 
+	(`id_tecnico`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_centro` 
+	(`id_centro`) REFERENCES `centro` (`id_centro`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `opcion` ADD FOREIGN KEY `FK_opcion_boleta` 
+	(`id_boleta`) REFERENCES `boleta` (`id_boleta`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `territorio` ADD FOREIGN KEY `FK_territorio_padre` 
+	(`id_padre`) REFERENCES `territorio` (`id_territorio`)
+	ON DELETE SET NULL;
+
+ALTER TABLE `voto` ADD FOREIGN KEY `FK_voto_contenido` 
+	(`id_contenido`) REFERENCES `boleta` (`id_boleta`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `voto` ADD FOREIGN KEY `FK_voto_mesa` 
+	(`id_mesa`) REFERENCES `mesa` (`id_mesa`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `fiscal` ADD FOREIGN KEY `FK_fiscal_partido` 
+	(`id_partido`) REFERENCES `partido` (`id_partido`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `fiscal` ADD FOREIGN KEY `FK_fiscal_ciudadano` 
+	(`id_ciudadano`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `fiscal` ADD FOREIGN KEY `FK_fiscal_mesa` 
+	(`id_mesa`) REFERENCES `mesa` (`id_mesa`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `vota_en` ADD FOREIGN KEY `FK_vota_en_ciudadano` 
+	(`id_ciudadano`) REFERENCES `ciudadano` (`id_ciudadano`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `vota_en` ADD FOREIGN KEY `FK_vota_en_mesa` 
+	(`id_mesa`) REFERENCES `mesa` (`id_mesa`)
+	ON DELETE CASCADE;
 
 -- Unique Keys?
 
