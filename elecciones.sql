@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `partido` (
 CREATE TABLE IF NOT EXISTS `territorio` (
 	`id_territorio` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nombre` VARCHAR(200) NOT NULL,
-	`nivel` ENUM('Nacion', 'Provincia', 'Municipio'),
+	`nivel` ENUM('nacion', 'provincia', 'municipio'),
 	`id_padre` INT(11) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
