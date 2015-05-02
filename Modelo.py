@@ -121,7 +121,10 @@ class Mesa:
             self.id_centro = None
 
     def __repr__(self):
-        return "«" + str(self.numero) + ", " + str(self.id_eleccion) + "»"
+        if self.id_mesa == None:
+            return "«" + str(self.numero) + ", " + str(self.id_eleccion) + "»"
+        else:
+            return "(" + str(self.id_mesa) + ")«" + str(self.numero) + ", " + str(self.id_eleccion) + "»"
 
     @classmethod
     def get_insert_query(self):
@@ -131,7 +134,7 @@ class Mesa:
         return query
 
 def get_mesas():
-    filas = db.runReadQuery("SELECT * FROM `mesa`;")
+    filas = db.runReadQuery("SELECT * FROM `mesa` ORDER BY `id_mesa`;")
     return [Mesa(fila=f) for f in filas]
 
 class Centro:

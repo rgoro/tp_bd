@@ -149,3 +149,13 @@ for m in mesas:
 
 db.runInsertQuery(Mesa.get_insert_query(), insert_data)
 
+mesas_completas = get_mesas()
+
+vota_en_data = []
+for i in range(len(mesas)):
+    mesa = mesas[i]
+    id_mesa = mesas_completas[i].id_mesa
+    padron_mesa = padron[mesa]
+    vota_en_data += [(c.id_ciudadano, id_mesa) for c in padron_mesa]
+
+db.runInsertQuery("INSERT INTO `vota_en` (id_ciudadano, id_mesa) VALUES (%s, %s)", vota_en_data)
