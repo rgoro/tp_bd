@@ -17,12 +17,8 @@ class Territorio:
             self.id_padre = fila[3]
 
 def get_territorios():
-    res = []
     filas = db.runReadQuery("select * from `territorio`")
-    for f in filas:
-        res.append(Territorio(f))
-
-    return res
+    return [Territorio(f) for f in filas]
 
 def get_dicc_territorios():
     return dict([(t.id_territorio, t) for t in get_territorios()])
@@ -69,6 +65,19 @@ def get_elecciones():
     
     return res
 
+class Partido:
+    def __init__(self, fila = None):
+        if fila == None:
+            self.id_partido = None
+            self.nombre = None
+        else:
+            self.id_partido = fila[0]
+            self.nombre = fila[1]
+
+def get_partidos():
+    filas = db.runReadQuery("SELECT * FROM `partido`;")
+    return [Partido(f) for f in filas]
+
 class Ciudadano:
     def __init__(self, fila = None):
         if fila == None:
@@ -85,21 +94,31 @@ class Ciudadano:
             self.fecha_nacimiento = fila[4]
     
 def get_poblacion():
-    res = []
     filas = db.runReadQuery("select * from `ciudadano`")
-    for f in filas:
-        res.append(Ciudadano(f))
-
-    return res
+    return [Ciudadano(f) for f in filas]
 
 class Mesa:
-    def __init__(self, numero, id_eleccion):
-        self.numero = numero
-        self.id_eleccion = id_eleccion
-        self.id_presidente = None
-        self.id_vicepresidente = None
-        self.id_tecnico = None
-        self.id_centro = None
+    def __init__(self, *args, **kwargs):
+        if 'fila' in kwargs.keys():
+            fila = kwargs.get('fila')
+            self.id_mesa = fila[0]
+            self.numero = fila[1]
+            self.id_eleccion = fila[2]
+            self.id_presidente = fila[3]
+            self.id_vicepresidente = fila[4]
+            self.id_tecnico = fila[5]
+            self.id_centro = fila[6]
+        else:
+            numero = kwargs.get('numero', None)
+            id_eleccion = kwargs.get('id_eleccion', None)
+
+            self.id_mesa = None
+            self.numero = numero
+            self.id_eleccion = id_eleccion
+            self.id_presidente = None
+            self.id_vicepresidente = None
+            self.id_tecnico = None
+            self.id_centro = None
 
     def __repr__(self):
         return "«" + str(self.numero) + ", " + str(self.id_eleccion) + "»"
@@ -110,6 +129,10 @@ class Mesa:
         query += """ VALUES (%s, %s, %s, %s, %s, %s)"""
         
         return query
+
+def get_mesas():
+    filas = db.runReadQuery("SELECT * FROM `mesa`;")
+    return [Mesa(fila=f) for f in filas]
 
 class Centro:
     def __init__(self, fila = None):

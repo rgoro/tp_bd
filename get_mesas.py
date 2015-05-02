@@ -19,7 +19,7 @@ for e in elecciones:
     if territorios[e.id_jurisdiccion].nombre == 'Argentina':
         for i in range(0, count_poblacion):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -33,7 +33,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'Buenos Aires':
         for i in range(0, 100):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -43,7 +43,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'San Martin' and territorios[territorios[e.id_jurisdiccion].id_padre].nombre == 'Buenos Aires':
         for i in range(0, 50):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -54,7 +54,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'Cordoba' and territorios[e.id_jurisdiccion].nivel == 'provincia':
         for i in range(100, 200):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -64,7 +64,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'Cordoba' and territorios[e.id_jurisdiccion].nivel == 'municipio':
         for i in range(100, 150):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -75,7 +75,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'Mendoza':
         for i in range(200, 350):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -85,7 +85,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'San Martin' and territorios[territorios[e.id_jurisdiccion].id_padre].nombre == 'Mendoza':
         for i in range(200, 250):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -95,7 +95,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'San Rafael':
         for i in range(300, 350):
             if i % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
@@ -106,7 +106,7 @@ for e in elecciones:
     elif territorios[e.id_jurisdiccion].nombre == 'Neuquen':
         for i in range(350, 500):
             if (i-10) % 20 == 0:
-                mesa = Mesa((i/20)+1, e.id_eleccion)
+                mesa = Mesa(numero=(i/20)+1, id_eleccion=e.id_eleccion)
                 mesas.append(mesa)
                 padron[mesa] = []
 
