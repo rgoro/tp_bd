@@ -16,18 +16,18 @@ INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Buenos Aires',
 SELECT LAST_INSERT_ID() INTO @ID_BUENOS_AIRES;
 INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Mendoza', 'provincia', @ID_ARGENTINA);
 SELECT LAST_INSERT_ID() INTO @ID_MENDOZA;
-INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Córdoba', 'provincia', @ID_ARGENTINA);
+INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Cordoba', 'provincia', @ID_ARGENTINA);
 SELECT LAST_INSERT_ID() INTO @ID_CORDOBA;
-INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Neuquén', 'provincia', @ID_ARGENTINA);
+INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Neuquen', 'provincia', @ID_ARGENTINA);
 SELECT LAST_INSERT_ID() INTO @ID_NEUQUEN;
 
-INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('San Martín', 'municipio', @ID_BUENOS_AIRES);
+INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('San Martin', 'municipio', @ID_BUENOS_AIRES);
 SELECT LAST_INSERT_ID() INTO @ID_SM_BSAS;
 INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('San Rafael', 'municipio', @ID_MENDOZA);
 SELECT LAST_INSERT_ID() INTO @ID_SAN_RAFAEL;
-INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('San Martín', 'municipio', @ID_MENDOZA);
+INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('San Martin', 'municipio', @ID_MENDOZA);
 SELECT LAST_INSERT_ID() INTO @ID_SM_MZA;
-INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Córdoba', 'municipio', @ID_CORDOBA);
+INSERT INTO `territorio` (`nombre`, `nivel`, `id_padre`) VALUES ('Cordoba', 'municipio', @ID_CORDOBA);
 SELECT LAST_INSERT_ID() INTO @ID_CORDOBA_CIUDAD;
 
 -- Elecciones
@@ -81,7 +81,7 @@ INSERT INTO `cargo` (`id_eleccion`, `titulo`) VALUES (@ID_INT_SM_MZA1, "Intenden
 INSERT INTO `eleccion` (`fecha`, `tipo`, `id_jurisdiccion`) VALUES ('2019-05-05', 'cargo', @ID_SM_MZA);
 SELECT LAST_INSERT_ID() INTO @ID_INT_SM_MZA2;
 INSERT INTO `cargo` (`id_eleccion`, `titulo`) VALUES (@ID_INT_SM_MZA2, "Intendente");
-INSERT INTO `eleccion` (`fecha`, `tipo`, `id_jurisdiccion`) VALUES ('2015-05-03', 'cargo', @ID_CORDOBA);
+INSERT INTO `eleccion` (`fecha`, `tipo`, `id_jurisdiccion`) VALUES ('2015-05-03', 'cargo', @ID_CORDOBA_CIUDAD);
 SELECT LAST_INSERT_ID() INTO @ID_INT_CBA;
 INSERT INTO `cargo` (`id_eleccion`, `titulo`) VALUES (@ID_INT_CBA, "Intendente");
 
