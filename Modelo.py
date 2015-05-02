@@ -3,9 +3,33 @@
 
 import DbElecciones as db
 
+class Territorio:
+    def __init__(self, fila = None):
+        if fila == None:
+            self.id_territorio = None
+            self.nombre = None
+            self.nivel = None
+            self.id_padre = None
+        else:
+            self.id_territorio = fila[0]
+            self.nombre = fila[1]
+            self.nivel = fila[2]
+            self.id_padre = fila[3]
+
+def get_territorios():
+    res = []
+    filas = db.runReadQuery("select * from `territorio`")
+    for f in filas:
+        res.append(Territorio(f))
+
+    return res
+
+def get_dicc_territorios():
+    return dict([(t.id_territorio, t) for t in get_territorios()])
+
 class Eleccion:
     def __init__(self, fila = None):
-        if (fila == None):
+        if fila == None:
             self.id_eleccion = None
             self.fecha = None
             # self.tipo = None
@@ -28,7 +52,15 @@ class Cargo(Eleccion):
 
 def get_elecciones():
     res = []
-    filas = db.runReadQuery("SELECT e.*, c.titulo FROM eleccion e INNER JOIN cargo c ON e.id_eleccion = c.id_eleccion UNION SELECT e.*, c.texto FROM eleccion e INNER JOIN consulta c ON e.id_eleccion = c.id_eleccion")
+    query_elecciones = "SELECT e.*, c.titulo FROM eleccion e"
+    query_elecciones += " INNER JOIN cargo c ON e.id_eleccion = c.id_eleccion"
+    query_elecciones += " WHERE e.tipo = 'cargo'"
+    query_elecciones += " UNION SELECT e.*, c.texto FROM eleccion e"
+    query_elecciones += " INNER JOIN consulta c ON e.id_eleccion = c.id_eleccion"
+    query_elecciones += " WHERE e.tipo = 'consulta'"
+    query_elecciones += " ORDER BY id_eleccion"
+    
+    filas = db.runReadQuery(query_elecciones)
     for f in filas:
         if f[2] == 'consulta':
             res.append(Consulta(f))
@@ -39,7 +71,7 @@ def get_elecciones():
 
 class Ciudadano:
     def __init__(self, fila = None):
-        if (fila == None):
+        if fila == None:
             self.id_ciudadano = None
             self.DNI = None
             self.nombres = None
@@ -54,20 +86,23 @@ class Ciudadano:
     
 def get_poblacion():
     res = []
-    filas = db.runReadQuery("SELECT * FROM `ciudadano`")
+    filas = db.runReadQuery("select * from `ciudadano`")
     for f in filas:
         res.append(Ciudadano(f))
 
     return res
 
 class Mesa:
-    def __init__(self, numero, id_eleccion, id_centro):
+    def __init__(self, numero, id_eleccion):
         self.numero = numero
         self.id_eleccion = id_eleccion
         self.id_presidente = None
         self.id_vice = None
         self.id_tecnico = None
         self.id_centro = None
+
+    def __repr__(self):
+        return "«" + str(self.numero) + ", " + str(self.id_eleccion) + "»"
 
 class Centro:
     def __init__(self):

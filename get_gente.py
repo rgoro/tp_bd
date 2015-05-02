@@ -29,7 +29,7 @@ def randomDate(start, end, prop):
 
 print 
 
-total = 700
+total = 50*4 + 100 + 200
 #total = 5
 
 gente = []
