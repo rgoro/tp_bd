@@ -112,10 +112,19 @@ class Mesa:
         return query
 
 class Centro:
-    def __init__(self):
-        self.direccion = u"En algún lado"
+    def __init__(self, fila = None):
+        if fila == None:
+            self.id_centro = None
+            self.direccion = u"En algún lado"
+        else:
+            self.id_centro = fila[0]
+            self.direccion = fila[1]
+
 
     def get_insert_query(self):
         return "INSERT INTO `centro` (`direccion`) VALUES ('" + self.direccion + "');"
 
-
+def get_centros():
+    filas = db.runReadQuery("SELECT * FROM `centro`;")
+    return [Centro(f) for f in filas]
+        

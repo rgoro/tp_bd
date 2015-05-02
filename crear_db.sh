@@ -8,3 +8,4 @@ $MYSQL < elecciones.sql
 $MYSQL < territorios_elecciones.sql
 $MYSQL < gente.sql
 python get_mesas.py
+$MYSQL < camionetas.sql
