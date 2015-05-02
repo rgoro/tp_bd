@@ -97,15 +97,25 @@ class Mesa:
         self.numero = numero
         self.id_eleccion = id_eleccion
         self.id_presidente = None
-        self.id_vice = None
+        self.id_vicepresidente = None
         self.id_tecnico = None
         self.id_centro = None
 
     def __repr__(self):
         return "«" + str(self.numero) + ", " + str(self.id_eleccion) + "»"
 
+    @classmethod
+    def get_insert_query(self):
+        query  = """INSERT INTO `mesa` (`numero`, `id_eleccion`, `id_presidente`, `id_vicepresidente`, `id_tecnico`, `id_centro`)"""
+        query += """ VALUES (%s, %s, %s, %s, %s, %s)"""
+        
+        return query
+
 class Centro:
     def __init__(self):
-        self.direccion = "En algún lado"
+        self.direccion = u"En algún lado"
+
+    def get_insert_query(self):
+        return "INSERT INTO `centro` (`direccion`) VALUES ('" + self.direccion + "');"
 
 

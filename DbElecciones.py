@@ -25,6 +25,7 @@ def runInsertQuery(ins_query, data = None):
         cur.execute(ins_query)
     db.commit()
 
+
 if __name__ == "__main__":
     print str(runReadQuery("show databases"))
 
