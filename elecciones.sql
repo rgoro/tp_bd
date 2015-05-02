@@ -6,7 +6,7 @@ START TRANSACTION;
 DROP DATABASE IF EXISTS `elecciones`;
 CREATE DATABASE IF NOT EXISTS `elecciones` COLLATE 'utf8_general_ci';
 
-USE `elecciones`
+USE `elecciones`;
 
 -- Entidades.
 CREATE TABLE IF NOT EXISTS `boleta` (
@@ -29,10 +29,15 @@ CREATE TABLE IF NOT EXISTS `candidato` (
 	`id_partido` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `cargo` (
+	`id_eleccion` INT(11) NOT NULL PRIMARY KEY,
+	`titulo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `centro` (
 	`id_centro` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`direccion` VARCHAR(200) NOT NULL
-	-- `id_territorio` INT(11) NOT NULL -- Por ahora no se si uso esto.
+	-- `id_territorio` INT(11) NOT NULL -- NO ESTÁ EN EL DER
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `ciudadano` (
@@ -41,6 +46,11 @@ CREATE TABLE IF NOT EXISTS `ciudadano` (
 	`nombres` VARCHAR(200) NOT NULL, 
 	`apellidos` VARCHAR(200) NOT NULL,
 	`fecha_nacimiento` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `consulta` (
+	`id_eleccion` INT(11) NOT NULL PRIMARY KEY,
+	`texto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `eleccion` (
@@ -126,6 +136,14 @@ ALTER TABLE `candidato` ADD FOREIGN KEY `FK_candidato_partido`
 
 ALTER TABLE `eleccion` ADD FOREIGN KEY `FK_eleccion_territorio` 
 	(`id_jurisdiccion`) REFERENCES `territorio` (`id_territorio`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `cargo` ADD FOREIGN KEY `FK_cargo_eleccion` 
+	(`id_eleccion`) REFERENCES `eleccion` (`id_eleccion`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `consulta` ADD FOREIGN KEY `FK_consulta_eleccion` 
+	(`id_eleccion`) REFERENCES `eleccion` (`id_eleccion`)
 	ON DELETE CASCADE;
 
 ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_eleccion` 
