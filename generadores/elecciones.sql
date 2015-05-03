@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `boleta` (
 CREATE TABLE IF NOT EXISTS `camioneta` (
 	`id_camioneta` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`patente` VARCHAR(6) NOT NULL UNIQUE,
-	`id_centro` INT(11) NOT NULL, -- Atención acá con asignar en distintas elecciones.
-	`id_responsable` INT(11) NOT NULL -- Atención acá con asignar en distintas elecciones.
+	`id_centro` INT(11) NOT NULL,
+	`id_responsable` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- FALTA KEY: La tripla debería ser UNIQUE
@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `cargo` (
 CREATE TABLE IF NOT EXISTS `centro` (
 	`id_centro` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`direccion` VARCHAR(200) NOT NULL
-	-- `id_territorio` INT(11) NOT NULL -- NO ESTÁ EN EL DER
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `ciudadano` (
