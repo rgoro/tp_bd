@@ -18,6 +18,7 @@ candidatos_presi = {}
 for e in elecciones:
     padron_eleccion = get_padron_eleccion(e)
     if isinstance(e, Cargo):
+        autoridades_eleccion = get_autoridades_mesa_eleccion(e)
         for p in partidos:
             #Partido de Marrek se presenta sólo a las municipales de SMM
             if p.nombre == 'Partido de Marrek' and e.id_jurisdiccion != id_SM_Mendoza:
@@ -30,9 +31,14 @@ for e in elecciones:
                     id_candidato = candidatos_presi[p]
                 else:
                     id_candidato = random.choice(padron_eleccion).id_ciudadano
+                    while id_candidato in autoridades_eleccion:
+                        id_candidato = random.choice(padron_eleccion).id_ciudadano
                     candidatos_presi[p] = id_candidato
             else:
                 id_candidato = random.choice(padron_eleccion).id_ciudadano
+                while id_candidato in autoridades_eleccion:
+                    id_candidato = random.choice(padron_eleccion).id_ciudadano
+
             data_boletas.append((e.id_eleccion, 'candidato'))
             list_candidatos.append([id_candidato, p.id_partido, e.id_eleccion])
     else:

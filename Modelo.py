@@ -65,6 +65,7 @@ def get_elecciones():
     
     return res
 
+
 class Partido:
     def __init__(self, fila = None):
         if fila == None:
@@ -140,6 +141,22 @@ class Mesa:
 def get_mesas():
     filas = db.runReadQuery("SELECT * FROM `mesa` ORDER BY `id_mesa`;")
     return [Mesa(fila=f) for f in filas]
+
+def get_mesas_eleccion(e):
+    return [Mesa(fila=f) for f in db.runReadQuery("SELECT * from `mesa` WHERE `id_eleccion` = " + str(e.id_eleccion))]
+
+def get_autoridades_mesa_eleccion(e):
+    mesas = get_mesas_eleccion(e)
+    autoridades = set()
+    for m in mesas:
+        autoridades.add(m.id_presidente)
+        autoridades.add(m.id_vicepresidente)
+        autoridades.add(m.id_tecnico)
+        fiscales = db.runReadQuery("SELECT `id_ciudadano` FROM `fiscal` WHERE `id_mesa` = " + str(m.id_mesa))
+        for f in fiscales:
+            autoridades.add(f[0])
+
+    return list(autoridades)
 
 class Centro:
     def __init__(self, fila = None):
