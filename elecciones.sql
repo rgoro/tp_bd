@@ -100,13 +100,15 @@ CREATE TABLE IF NOT EXISTS `voto` (
 CREATE TABLE IF NOT EXISTS `fiscal` ( 
 	`id_partido` INT(11) NOT NULL,
 	`id_ciudadano` INT(11) NOT NULL,
-	`id_mesa` INT(11) NOT NULL
+	`id_mesa` INT(11) NOT NULL,
+	PRIMARY KEY (`id_partido`, `id_ciudadano`, `id_mesa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `vota_en` ( 
 	`id_ciudadano` INT(11) NOT NULL,
 	`id_mesa` INT(11) NOT NULL,
-	`hora` DATETIME NULL
+	`hora` DATETIME NULL,
+	PRIMARY KEY (`id_ciudadano`, `id_mesa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
