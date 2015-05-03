@@ -14,21 +14,31 @@ data_boletas = []
 list_candidatos = []
 list_opciones = []
 
+candidatos_presi = {}
 for e in elecciones:
     padron_eleccion = get_padron_eleccion(e)
     if isinstance(e, Cargo):
         for p in partidos:
             #Partido de Marrek se presenta sólo a las municipales de SMM
             if p.nombre == 'Partido de Marrek' and e.id_jurisdiccion != id_SM_Mendoza:
-                pass
+                continue
 
             #Ojo, nada asegura que el candidato no sea autoridad de mesa
+            id_candidato = None
+            if p.nombre != "Partido Colocado" and e.titulo == "Presidente":
+                if candidatos_presi.has_key(p):
+                    id_candidato = candidatos_presi[p]
+                else:
+                    id_candidato = random.choice(padron_eleccion).id_ciudadano
+                    candidatos_presi[p] = id_candidato
+            else:
+                id_candidato = random.choice(padron_eleccion).id_ciudadano
             data_boletas.append((e.id_eleccion, 'candidato'))
-            list_candidatos.append([random.choice(padron_eleccion).id_ciudadano, p.id_partido])
+            list_candidatos.append([id_candidato, p.id_partido, e.id_eleccion])
     else:
         for i in range(random.randint(2, 6)):
             data_boletas.append((e.id_eleccion, 'opcion'))
-            list_opciones.append([u"Este sería el texto de la opción " + str(i)])
+            list_opciones.append([u"Este sería el texto de la opción " + str(i), e.id_eleccion])
 
 db.runInsertQuery("INSERT INTO `boleta` (id_eleccion, tipo) VALUES (%s, %s)", data_boletas)
 
@@ -47,5 +57,6 @@ for i in range(len(boletas_completas)):
 data_opciones = [tuple(i) for i in list_opciones]
 data_candidatos = [tuple(i) for i in list_candidatos]
 
-db.runInsertQuery("INSERT INTO `opcion` (texto, id_boleta) VALUES (%s, %s)", data_opciones)
-db.runInsertQuery("INSERT INTO `candidato` (id_ciudadano, id_partido, id_boleta) VALUES (%s, %s, %s)", data_candidatos)
+db.runInsertQuery("INSERT INTO `opcion` (texto, id_eleccion, id_boleta) VALUES (%s, %s, %s)", data_opciones)
+db.runInsertQuery("INSERT INTO `candidato` (id_ciudadano, id_partido, id_eleccion, id_boleta) VALUES (%s, %s, %s, %s)", data_candidatos)
+

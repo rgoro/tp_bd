@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS `camioneta` (
 CREATE TABLE IF NOT EXISTS `candidato` (
 	`id_boleta` INT(11) NOT NULL PRIMARY KEY,
 	`id_ciudadano` INT(11) NOT NULL, -- NO ESTÁ EN EL DER
-	`id_partido` INT(11) NOT NULL
+	`id_partido` INT(11) NOT NULL,
+	`id_eleccion` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `cargo` (
@@ -72,7 +73,8 @@ CREATE TABLE IF NOT EXISTS `mesa` (
 
 CREATE TABLE IF NOT EXISTS `opcion` (
 	`id_boleta` INT(11) NOT NULL PRIMARY KEY,
-	`texto` VARCHAR(100)
+	`texto` VARCHAR(100),
+	`id_eleccion` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `partido` (
@@ -134,6 +136,10 @@ ALTER TABLE `candidato` ADD FOREIGN KEY `FK_candidato_partido`
 	(`id_partido`) REFERENCES `partido` (`id_partido`)
 	ON DELETE CASCADE;
 
+ALTER TABLE `candidato` ADD FOREIGN KEY `FK_candidato_eleccion` 
+	(`id_eleccion`) REFERENCES `eleccion` (`id_eleccion`)
+	ON DELETE CASCADE;
+
 ALTER TABLE `eleccion` ADD FOREIGN KEY `FK_eleccion_territorio` 
 	(`id_jurisdiccion`) REFERENCES `territorio` (`id_territorio`)
 	ON DELETE CASCADE;
@@ -168,6 +174,10 @@ ALTER TABLE `mesa` ADD FOREIGN KEY `FK_mesa_centro`
 
 ALTER TABLE `opcion` ADD FOREIGN KEY `FK_opcion_boleta` 
 	(`id_boleta`) REFERENCES `boleta` (`id_boleta`)
+	ON DELETE CASCADE;
+
+ALTER TABLE `opcion` ADD FOREIGN KEY `FK_opcion_eleccion` 
+	(`id_eleccion`) REFERENCES `eleccion` (`id_eleccion`)
 	ON DELETE CASCADE;
 
 ALTER TABLE `territorio` ADD FOREIGN KEY `FK_territorio_padre` 
