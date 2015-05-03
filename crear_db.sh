@@ -10,3 +10,4 @@ $MYSQL < gente.sql
 python get_mesas.py
 $MYSQL < camionetas.sql
 python get_fiscales.py
+python get_boletas.py

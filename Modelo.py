@@ -94,8 +94,12 @@ class Ciudadano:
             self.fecha_nacimiento = fila[4]
     
 def get_poblacion():
-    filas = db.runReadQuery("select * from `ciudadano`")
+    filas = db.runReadQuery("SELECT * FROM `ciudadano`")
     return [Ciudadano(f) for f in filas]
+
+def get_padron_eleccion(e):
+   filas = db.runReadQuery("SELECT c.* FROM ciudadano c INNER JOIN mesa m INNER JOIN vota_en v ON v.id_ciudadano = c.id_ciudadano AND v.id_mesa = m.id_mesa WHERE m.id_eleccion = " + str(e.id_eleccion))
+   return [Ciudadano(f) for f in filas]
 
 class Mesa:
     def __init__(self, *args, **kwargs):
