@@ -21,4 +21,18 @@ CREATE PROCEDURE `get_ganadores_ultimo_anyo` ()
 			GROUP BY totales.id_eleccion;
 	END//
 
+CREATE PROCEDURE `get_votantes_sobre_la_hora` (IN id_eleccion INT(11))
+	BEGIN
+		SELECT ci.DNI, ci.nombres, ci.apellidos, ve.hora FROM `centro` AS c
+			INNER JOIN `mesa` AS m ON m.id_centro = c.id_centro
+			INNER JOIN `vota_en` AS ve ON ve.id_mesa = m.id_mesa
+			INNER JOIN `ciudadano` AS ci ON ve.id_ciudadano = ci.id_ciudadano
+			WHERE m.id_eleccion = id_eleccion
+			ORDER BY hora DESC
+			LIMIT 5;
+	END//
+
+
+DELIMITER ;
+
 COMMIT;
