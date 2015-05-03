@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `territorio` (
 
 CREATE TABLE IF NOT EXISTS `voto` (
 	`id_voto` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`id_contenido` INT(11) NOT NULL,
+	`id_boleta` INT(11) NOT NULL,
 	`id_mesa` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -186,8 +186,8 @@ ALTER TABLE `territorio` ADD FOREIGN KEY `FK_territorio_padre`
 	(`id_padre`) REFERENCES `territorio` (`id_territorio`)
 	ON DELETE SET NULL;
 
-ALTER TABLE `voto` ADD FOREIGN KEY `FK_voto_contenido` 
-	(`id_contenido`) REFERENCES `boleta` (`id_boleta`)
+ALTER TABLE `voto` ADD FOREIGN KEY `FK_voto_boleta` 
+	(`id_boleta`) REFERENCES `boleta` (`id_boleta`)
 	ON DELETE CASCADE;
 
 ALTER TABLE `voto` ADD FOREIGN KEY `FK_voto_mesa` 

@@ -174,4 +174,34 @@ class Centro:
 def get_centros():
     filas = db.runReadQuery("SELECT * FROM `centro`;")
     return [Centro(f) for f in filas]
-        
+
+class Boleta:
+    def __init__(self, fila = None):
+        if fila == None:
+            self.id_boleta = None
+            self.id_eleccion = None
+            self.tipo = None
+        else:
+            self.id_boleta = fila[0]
+            self.id_eleccion = fila[1]
+            self.tipo = fila[2]
+
+def get_boletas_eleccion(e):
+    filas = db.runReadQuery("SELECT * FROM `boleta` WHERE `id_eleccion` = " + str(e.id_eleccion))
+    return [Boleta(f) for f in filas]
+
+class VotaEn:
+    def __init__(self, fila = None):
+        if fila == None:
+            self.id_ciudadano = None
+            self.id_mesa = None
+            self.hora = None
+        else:
+            self.id_ciudadano = fila[0]
+            self.id_mesa = fila[1]
+            self.hora = fila[2]
+    
+def get_vota_en_mesa(m):
+    filas = db.runReadQuery("SELECT * FROM `vota_en` WHERE `id_mesa` = " + str(m.id_mesa))
+    return [VotaEn(f) for f in filas]
+

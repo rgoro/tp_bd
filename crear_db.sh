@@ -11,3 +11,4 @@ python get_mesas.py
 $MYSQL < camionetas.sql
 python get_fiscales.py
 python get_boletas.py
+python get_votos.py
