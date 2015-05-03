@@ -12,3 +12,4 @@ $MYSQL < camionetas.sql
 python get_fiscales.py
 python get_boletas.py
 python get_votos.py
+$MYSQL < add_stored_procedures.sql
