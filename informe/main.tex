@@ -10,6 +10,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 
+\normalem
+
 \lstset{
 	basicstyle=\footnotesize,
 	breaklines=true,
@@ -49,7 +51,6 @@ FK = \{#4\}\\
 \submateria{Primer Cuatrimestre de 2015}
 \titulo{Trabajo Práctico 1}
 
-\grupo{Grupo}
 \integrante{Román Gorojovsky}{530/02}{rgorojovsky@gmail.com}
 
 \begin{titlepage}
@@ -140,16 +141,16 @@ Ese modelo resulta en el siguiente modelo relacional:\\
 \MR{Voto}{idVoto}{idBoleta, idMesa}{}
 
 \noindent
-\textbf{Fiscal}(\PKFK{idPartido, idCiudadano, idMesa})\\
+\textbf{Fiscal}(\PKFK{idPartido}, \PKFK{idCiudadano}, \PKFK{idMesa})\\
 PK = CK = \{(idPartido, idCiudadano, idMesa)\}\\
 FK = \{idPartido, idCiudadano, idMesa\}\\
 
 \noindent
-\textbf{VotaEn}(\PKFK{idCiudadano, idMesa}, hora)\\
+\textbf{VotaEn}(\PKFK{idCiudadano}, \PKFK{idMesa}, hora)\\
 PK = CK = \{(idCiudadano, idMesa)\}\\
-FK = \{idPartido, idCiudadano, idMesa\}
+FK = \{idPartido, idCiudadano, idMesa\}\\
 
-\pagebreak
+\noindent
 Con las siguientes restricciones:\\
 
 \noindent
@@ -185,7 +186,7 @@ $\\$
 \noindent
 \textbf{Consulta.idEleccion} debe estar en \textbf{Eleccion.idEleccion}.
 
-$\\$
+$\\$
 \noindent
 \textbf{Eleccion.idJurisdiccion} debe estar en \textbf{Territorio.idTerritorio}.\\
 \textbf{Eleccion.idEleccion} debe estar o bien en \textbf{Cargo.idEleccion} o bien en
@@ -296,6 +297,8 @@ En dicho directorio encontraremos:
 	\item \texttt{get\_votos.py} -- Genera y carga los votos.
 	\item \texttt{add\_stored\_procedures.sql} -- Carga los \emph{stored procedures}
 \end{itemize}
+
+$\\$
 
 \begin{itemize}
 	\item \texttt{get\_gente.py} -- Obtiene nombres al azar de un servicio en internet y escribe por
