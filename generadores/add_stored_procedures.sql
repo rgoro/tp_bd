@@ -1,3 +1,6 @@
+-- TP 1 Bases de Datos 2015 1c
+-- Autor: Román Gorojovsky, L.U. 530/02
+
 START TRANSACTION;
 
 USE `elecciones`;
@@ -22,7 +25,7 @@ CREATE PROCEDURE `get_ganadores_ultimo_anyo` ()
 			) AS totales
 			INNER JOIN cargo AS ca ON ca.id_eleccion = totales.id_eleccion
 			INNER JOIN territorio AS t ON t.id_territorio = totales.id_jurisdiccion
-			GROUP BY totales.id_eleccion
+			GROUP BY totales.id_eleccion;
 	END//
 
 -- Calcula, dado un id de eleccion, los ultimo cinco votantes en llegar a cada centro.

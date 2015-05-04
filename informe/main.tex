@@ -250,8 +250,64 @@ Para resolver las tres funcionalidades pedidas se utilizaron los siguientes Stor
 \lstinputlisting[language=SQL, firstline=5, lastline=91]{../generadores/add_stored_procedures.sql}
 
 \section{Datos de testing}
-\subsection{Scripts de carga de datos}
+Para testear el sistema se desarrollaron scripts de carga de datos usando una combinación de SQL y
+\emph{Python}.  Se buscó cubrir una cantidad mínima de casos pero suficiente como para ejemplificar
+todas las situaciones que el enunciado plantea.  Así, se crearon consultas populares y elecciones
+a distintos cargos a niveles nacional, provincial y municipal, con sus mesas, sus autoridades,
+candidatos, centros, etc'etera.  Por supuesto la mayor parte de la información está generada al
+azar, y asi encontraremos que:
 
+\begin{itemize}
+	\item No hay orden ni concierto entre el DNI y las fechas de nacimiento de las personas.
+	\item Las patentes de las camionetas ni siquera respetan algún sistema que se haya usado en la
+		memoria reciente (es decir, la nuestra: 30 años aprox.)
+	\item Los fiscales y candidatos saltan de partido de elección a elección sin ningún tipo de
+		orden, con la excepción de un partido que presenta el mismo candidato en ambas elecciones a
+		Presidente.
+	\item Uno de los partidos sólo presenta candidatos y fiscales a las elecciones de un municipio.
+	\item Para cada elección se crearon centros nuevos que agrupan las mesas.  En la realidad se
+		reutlizaría el mismo centro para cada elección en el mismo distrito.
+	\item No hay información geográfica de los centros, salvo una dirección que se completó con un
+		texto \emph{placeholder}.
+		\begin{itemize}
+			\item Estos dos últimos puntos obedecen a limitaciones de la forma de construír los
+				datos y de ninguna manera a limitaciones del modelo.
+			\item  Dicho eso, cabe comentar que se consideró una relación entre Centro y Territorio,
+				pero se la descartó considerandola fuera del alcance del enunciado.
+		\end{itemize}
+\end{itemize}
+
+\subsection{Detalle de los scripts de carga de datos}
+En el directorio \texttt{dump} se incluye un dump de la base de datos, \texttt{dump\_elecciones.sql},
+pero se puede regenerar con información nueva con el contenido del directorio \texttt{generadores}.
+En dicho directorio encontraremos:
+
+\begin{itemize}
+	\item \texttt{crear\_db.sh} -- Ejecuta todos los scripts necesarios para reconstruír la base.
+	\item \texttt{elecciones.sql} -- Crea la estructura de la base de datos.
+	\item \texttt{data\_suelta.sql} -- Carga las tablas que no tienen dependencias importantes:
+		territorios, elecciones y partidos.
+	\item \texttt{gente.sql} -- Carga los votantes.
+	\item \texttt{get\_mesas.py} -- Genera y carga las mesas, asociándole sus votantes y su padrón.
+	\item \texttt{camionetas.sql} -- Carga las camionetas.
+	\item \texttt{get\_boletas.py} -- Genera y carga las opciones de las consultas y los candidatos
+		a los cargos.
+	\item \texttt{get\_fiscales.py} -- Genera y carga los fiscales.
+	\item \texttt{get\_votos.py} -- Genera y carga los votos.
+	\item \texttt{add\_stored\_procedures.sql} -- Carga los \emph{stored procedures}
+\end{itemize}
+
+\begin{itemize}
+	\item \texttt{get\_gente.py} -- Obtiene nombres al azar de un servicio en internet y escribe por
+		\texttt{stdout} la query que los cargaría (\texttt{gente.sql}).  Debido al servicio que se
+		usó es necesario separar a mano nombres de apellidos.
+	\item \texttt{get\_camionetas.py} -- Genera la query para cargar las camionetas
+		(\texttt{camionetas.sql})
+	\item \texttt{DbElecciones.py} -- Funciones generales de conexión con base de datos y ejecución
+		de queries.
+	\item \texttt{Modelo.py} -- Abstracción \emph{ad hoc} del modelo relacional en clases, objetos y
+		funciones \emph{Python}
+\end{itemize}
 
 
 \end{document}

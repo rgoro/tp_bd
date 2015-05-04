@@ -27,7 +27,7 @@ def strTimeProp(start, end, format, prop):
 def randomDate(start, end, prop):
     return strTimeProp(start, end, '%Y-%m-%d', prop)
 
-total = 50*4 + 100 + 200
+total = 700
 #total = 5
 
 gente = []
