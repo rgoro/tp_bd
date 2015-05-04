@@ -22,12 +22,12 @@ CREATE TABLE IF NOT EXISTS `camioneta` (
 	`id_responsable` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- FALTA KEY: La tripla debería ser UNIQUE
 CREATE TABLE IF NOT EXISTS `candidato` (
 	`id_boleta` INT(11) NOT NULL PRIMARY KEY,
-	`id_ciudadano` INT(11) NOT NULL, -- NO ESTÁ EN EL DER
+	`id_ciudadano` INT(11) NOT NULL,
 	`id_partido` INT(11) NOT NULL,
-	`id_eleccion` INT(11) NOT NULL
+	`id_eleccion` INT(11) NOT NULL,
+	UNIQUE KEY (`id_ciudadano`, `id_partido`, `id_eleccion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `cargo` (
