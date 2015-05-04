@@ -2,10 +2,10 @@ START TRANSACTION;
 
 USE `elecciones`;
 
--- Calcula los candidatos que ganaron las elecciones transcurridas en el último año
+-- Calcula los candidatos que ganaron las elecciones transcurridas en el ultimo anyo
 -- La subquery hace el join natural de todas las tablas necesarias, agrupa y ordena
 -- Aprovechando esto la query externa toma el primero de cada eleccion, mediante 
--- otro GROUP BY, y agrega información para hacer el resultado legible.
+-- otro GROUP BY, y agrega informacion para hacer el resultado legible.
 DELIMITER //
 CREATE PROCEDURE `get_ganadores_ultimo_anyo` ()
 	BEGIN
@@ -25,7 +25,7 @@ CREATE PROCEDURE `get_ganadores_ultimo_anyo` ()
 			GROUP BY totales.id_eleccion
 	END//
 
--- Calcula, dado un id de elección, los último cinco votantes en llegar a cada centro.
+-- Calcula, dado un id de eleccion, los ultimo cinco votantes en llegar a cada centro.
 -- Se trata de un join natural de las tablas correspondientes, un ORDER BY y un LIMIT.
 CREATE PROCEDURE `get_votantes_sobre_la_hora` (IN id_eleccion INT(11))
 	BEGIN
@@ -39,9 +39,9 @@ CREATE PROCEDURE `get_votantes_sobre_la_hora` (IN id_eleccion INT(11))
 	END//
 
 
--- Calcula los partidos que superaron el 20% en las últimas cinco elecciones provinciales a gobernador.
+-- Calcula los partidos que superaron el 20% en las ultimas cinco elecciones provinciales a gobernador.
 -- En este caso se opto por crear tablas temporales con los datos necesarios para el calculo y
--- finalmente presentar la información relevante.
+-- finalmente presentar la informacion relevante.
 CREATE PROCEDURE `get_partidos_sobre_20_porciento` ()
 	BEGIN
 		CREATE TEMPORARY TABLE IF NOT EXISTS `votos_totales_eleccion`
@@ -68,7 +68,7 @@ CREATE PROCEDURE `get_partidos_sobre_20_porciento` ()
 				FROM votos_totales_eleccion AS vte
 					INNER JOIN votos_partido_eleccion AS vpe ON vpe.id_eleccion = vte.id_eleccion;
 
-		-- Esto es necesario porque mysql no soporta limit en subqueries, si no sería una subquery
+		-- Esto es necesario porque mysql no soporta limit en subqueries, si no seria una subquery
 		-- en el SELECT final.
 		-- El territorio y su nivel son innecesarios, no hay gobernadores que no son de provincia
 		--   pero los pongo para respetar mas fielmente el enunciado
